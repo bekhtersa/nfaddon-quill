@@ -1,0 +1,18 @@
+{
+	"name": "@nfaddon/quill",
+	"version": "1.0.0",
+	"description": "Quill Editor for NF-Framework",
+	"license": "MIT",
+	"type": "module",
+	"repository": {
+		"url": "https://github.com/bekhtersa/nfaddon-quill.git"
+	},
+	"author": {
+		"name": "Sergey Bekhter",
+		"email": "sabgrand@gmail.com"
+	},
+	"dependencies": {
+		"@nfjs/front-server": "^1.0.5",
+		"quill": "1.3.7"
+	}
+}
