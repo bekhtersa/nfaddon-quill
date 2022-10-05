@@ -96,7 +96,7 @@ class CBQuill extends PlElement {
           this.editor.selection.getNativeRange = () => {
             
             const dom = this.editor.root.getRootNode();
-            const selection = dom.getSelection();
+            const selection = dom?.getSelection();
             const range = normalizeNative(selection);
             
             return range;
