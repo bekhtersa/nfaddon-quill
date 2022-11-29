@@ -104,15 +104,15 @@ class CBQuill extends PlElement {
           
           // Subscribe to selection change separately, 
           // because emitter in Quill doesn't catch this event in Shadow DOM
-          
-          document.addEventListener("selectionchange", (...args) => {
-          
-            // Update selection and some other properties
-          
-            this.editor.selection.update()
-          });
+          this.selectionUpdateHandler = (...args) => {
+              // Update selection and some other properties
+              this.editor.selection.update();
+          }
+          document.addEventListener("selectionchange", this.selectionUpdateHandler);
     }
-
+    disconnectedCallback(){
+        document.removeEventListener("selectionchange", this.selectionUpdateHandler);
+    }
     static get css() {
         return css(`
             ${cssCore}
