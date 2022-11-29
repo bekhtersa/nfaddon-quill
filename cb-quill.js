@@ -125,6 +125,7 @@ class CBQuill extends PlElement {
             }
             #editor{
                 contain: size;
+                flex: 1;
             }
         `);
     } 
