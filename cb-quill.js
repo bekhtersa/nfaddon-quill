@@ -124,8 +124,11 @@ class CBQuill extends PlElement {
                 flex-direction: column;
             }
             #editor{
-                contain: size;
                 flex: 1;
+                overflow-y: auto;
+            }
+            #editor > div:first-child{
+                min-height: 100px;
             }
         `);
     } 
