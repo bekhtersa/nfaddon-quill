@@ -1,10 +1,12 @@
 import { PlElement, html, css } from "polylib";
 import "quill";
 import { debounce } from "@plcmp/utils";
+const host = import.meta.url.match(/^[a-z]+:\/\/[^\/]+/i)?.[0] ?? '';
 const cssCore = await (await fetch("/quill/dist/quill.core.css")).text();
 const cssTheme = await (await fetch("/quill/dist/quill.snow.css")).text();
 const TOOLBAR_CONFIG = [
     [{ header: ['1', '2', '3', false] }],
+    [{ 'size': ['8px', '10px', '12px', false, '14px', '16px', '18px', '20px', '22px', '24px', '26px', '28px', '30px', '32px'] }],
     [{ align: ['', 'center', 'right']}],
     ['bold', 'italic', 'underline', 'strike'],
     [{ 'color': [] }, { 'background': [] }],
@@ -24,6 +26,14 @@ class CBQuill extends PlElement {
 
     connectedCallback(){
         super.connectedCallback();
+        const Size = Quill.import('attributors/class/size');
+        Size.whitelist = [
+          '8px', '10px', '12px', '14px', 
+          '16px', '18px', '20px', '22px', 
+          '24px', '26px', '28px', '30px', 
+          '32px'
+        ];
+        Quill.register({'formats/size': Size}, true);
         this.editor = new Quill( this.$.editor, {
             modules: {
                 toolbar: TOOLBAR_CONFIG
@@ -130,12 +140,17 @@ class CBQuill extends PlElement {
             #editor > div:first-child{
                 min-height: 100px;
             }
+            .ql-snow .ql-picker.ql-size .ql-picker-item[data-value]::before {
+              content: attr(data-value);
+            }
         `);
     } 
 
-    static template = html`
-        <div id="editor"></div>
-    `;
+    static get template() {
+       return html(`
+        <link href="${host}/static/cb-quill/theme.css" rel="stylesheet">
+        <div id="editor"></div>`);
+    };
 
     changeValue(value){
         if(this.fromEditor){
